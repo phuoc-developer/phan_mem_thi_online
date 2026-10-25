@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập - Hệ Thống thi trắc nghiệm trực tuyến</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body >
+    <div class="container" style="max-width: 450px;">
+        <div class="card log-card p-4">
+            <div class="text-center mb-4">
+                <i class="bi bi-laptop display-4 text-primary"></i>
+                <h3 class="fw-bold mt-2">HỆ THỐNG THI TRỰC TUYẾN</h3>
+                <P class="text-mutext small">Dành cho thí sinh/ Học sinh</P>
+            </div>
+            <form action="select-exam.html" method="post">
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Số Báo Danh: </label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="VD: 0102030405">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Mật khẩu: </label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" placeholder="VD: 0102030405">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Đợt Thi: </label>
+                    <div>
+                        <select class="form-select">
+                            <option value="">Kì Thi Giữa Kì I</option>
+                            <option value="">Kì Thi Cuối Kì I</option>
+                            <option value="">Kì Thi Giữa Kì II</option>
+                            <option value="">Kì Thi Cuối Kì II</option>
+                            <option value="">Kì Thi TỐT NGHIỆP TRUNG HỌC PHỔ THÔNG Năm 2027</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-3 form-check d-flex justify-content-between">
+                    <div>
+                        <input type="checkbox" class="form-check-input" id="remeber">
+                        <label class="form-check-label small" for="remeber">Ghi nhớ mật khẩu?</label>
+                    </div>
+                    <a href="#" class="small text-decoration-none">Quên Thông tin</a>
+                </div>
+                
+                <button type="submit" class="btn btn-primary w-100 p-2 fw-semibold">Đănh nhập <i class="bi bi-arrow-right-short"></i></button>
+            </form>
+        </div>
+    </div>
+
+    <script href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

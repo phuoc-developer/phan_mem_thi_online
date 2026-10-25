@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giao diện Bài thi Trực tuyến</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-100 h-screen flex flex-col font-sans select-none">
+
+    <!-- 1. THANH TIÊU ĐỀ (TOP BAR) -->
+    <header class="bg-blue-700 text-white h-16 px-6 flex items-center justify-between shadow-md">
+        <div class="flex items-center space-x-3">
+            <i class="fa-solid fa-graduation-cap text-2xl"></i>
+            <h1 class="text-lg font-bold">Bài Thi Kiểm Tra Kiến Thức Chuyển Đổi Số</h1>
+        </div>
+        
+        <!-- Đồng hồ đếm ngược -->
+        <div class="flex items-center bg-blue-800 px-4 py-1.5 rounded-lg border border-blue-600">
+            <i class="fa-regular fa-clock mr-2 text-yellow-400"></i>
+            <span class="text-sm font-medium mr-2">Thời gian còn lại:</span>
+            <span id="timer" class="font-mono text-xl font-bold text-yellow-300">45:00</span>
+        </div>
+
+        <!-- Thông tin thí sinh & Nút nộp bài -->
+        <div class="flex items-center space-x-6">
+            <div class="flex items-center space-x-3">
+                <div class="w-9 h-9 rounded-full bg-blue-500 flex items-center justify-center font-bold border">NV</div>
+                <div class="text-sm">
+                    <p class="font-semibold leading-tight">Nguyễn Văn A</p>
+                    <p class="text-xs text-blue-200">SBD: 123456</p>
+                </div>
+            </div>
+            <button onclick="submitExam()" class="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-lg font-semibold text-sm transition shadow">
+                Nộp bài
+            </button>
+        </div>
+    </header>
+
+    <!-- THÂN MÀN HÌNH (MAIN CONTENT AREA) -->
+    <div class="flex-1 flex overflow-hidden">
+        
+        <!-- 2. KHU VỰC CÂU HỎI CHÍNH -->
+        <main class="flex-1 flex flex-col justify-between p-6 overflow-y-auto">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                <!-- Header câu hỏi -->
+                <div class="flex justify-between items-center border-b pb-4 mb-4">
+                    <span class="text-lg font-bold text-blue-700">Câu 15 / 40</span>
+                    <button id="flagBtn" onclick="toggleFlag()" class="flex items-center text-sm font-medium text-gray-500 hover:text-yellow-600 transition">
+                        <i class="fa-regular fa-bookmark mr-1.5" id="flagIcon"></i>
+                        <span id="flagText">Đánh dấu xem lại</span>
+                    </button>
+                </div>
+
+                <!-- Nội dung câu hỏi -->
+                <div class="mb-6">
+                    <p class="text-gray-800 text-base font-medium leading-relaxed">
+                        Đâu là trụ cột chính trong chiến lược Chuyển đổi số quốc gia của Việt Nam theo Quyết định số 749/QĐ-TTg của Thủ tướng Chính phủ?
+                    </p>
+                </div>
+
+                <!-- Danh sách phương án -->
+                <div class="space-y-3">
+                    <label class="flex items-center p-3.5 border rounded-lg cursor-pointer hover:bg-blue-50 transition border-gray-200">
+                        <input type="radio" name="answer" value="A" class="w-4 h-4 text-blue-600">
+                        <span class="ml-3 text-gray-700">A. Chính phủ số, Kinh tế số và Xã hội số</span>
+                    </label>
+                    
+                    <label class="flex items-center p-3.5 border rounded-lg cursor-pointer hover:bg-blue-50 transition border-gray-200">
+                        <input type="radio" name="answer" value="B" class="w-4 h-4 text-blue-600">
+                        <span class="ml-3 text-gray-700">B. Hạ tầng số, Nhân lực số và An toàn thông tin</span>
+                    </label>
+                    
+                    <label class="flex items-center p-3.5 border rounded-lg cursor-pointer hover:bg-blue-50 transition border-gray-200">
+                        <input type="radio" name="answer" value="C" class="w-4 h-4 text-blue-600">
+                        <span class="ml-3 text-gray-700">C. Dữ liệu số, Công nghệ số và Doanh nghiệp số</span>
+                    </label>
+                    <label class="flex items-center p-3.5 border rounded-lg cursor-pointer hover:bg-blue-50 transition border-gray-200">
+                        <input type="radio" name="answer" value="D" class="w-4 h-4 text-blue-600">
+                        <span class="ml-3 text-gray-700">D. Điện toán đám mây, Dữ liệu lớn và Trí tuệ nhân tạo</span>
+                    </label>
+                </div>
+            </div>
+                
+
+            <!-- 3. THANH ĐIỀU HƯỚNG THAO TÁC (BOTTOM BAR) -->
+            <div class="flex justify-between items-center mt-4">
+                <button class="px-5 py-2.5 bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium rounded-lg text-sm transition">
+                    <i class="fa-solid fa-arrow-left mr-2"></i>Câu trước
+                </button>
+                <button onclick="clearSelection()" class="text-sm text-gray-500 hover:text-red-600 underline">
+                    Xóa lựa chọn
+                </button>
+                <button class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg text-sm transition">
+                    Câu tiếp theo<i class="fa-solid fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </main>
+<!-- 4. THANH BÊN ĐIỀU HƯỚNG CÂU HỎI & CAMERA GIÁM SÁT -->
+        <aside class="w-80 bg-white border-l border-gray-200 p-5 flex flex-col justify-between">
+            <div>
+                <h3 class="font-bold text-gray-700 mb-3 text-sm uppercase tracking-wider">Danh sách câu hỏi</h3>
+                
+                <!-- Mã màu ghi chú -->
+                <div class="grid grid-cols-2 gap-2 mb-4 text-xs text-gray-600">
+                    <div class="flex items-center"><span class="w-3 h-3 bg-green-500 rounded-sm mr-1.5"></span>Đã làm</div>
+                    <div class="flex items-center"><span class="w-3 h-3 bg-gray-200 rounded-sm mr-1.5 border"></span>Chưa làm</div>
+                    <div class="flex items-center"><span class="w-3 h-3 bg-yellow-400 rounded-sm mr-1.5"></span>Đánh dấu</div>
+                    <div class="flex items-center"><span class="w-3 h-3 border-2 border-blue-600 rounded-sm mr-1.5"></span>Đang làm</div>
+                </div>
+
+                <!-- Grid danh sách câu hỏi -->
+                <div class="grid grid-cols-5 gap-2 max-h-64 overflow-y-auto p-1">
+                    <!-- Các câu mẫu -->
+                    <button class="h-9 w-9 bg-green-500 text-white text-xs font-bold rounded">1</button>
+                    <button class="h-9 w-9 bg-green-500 text-white text-xs font-bold rounded">2</button>
+                    <button class="h-9 w-9 bg-green-500 text-white text-xs font-bold rounded">3</button>
+                    <button class="h-9 w-9 bg-yellow-400 text-white text-xs font-bold rounded">4</button>
+                    <button class="h-9 w-9 bg-green-500 text-white text-xs font-bold rounded">5</button>
+                    <!-- Thêm các câu khác... -->
+                    <button class="h-9 w-9 bg-gray-200 text-gray-700 text-xs font-bold rounded border">14</button>
+                    <button class="h-9 w-9 bg-white text-blue-600 text-xs font-bold rounded border-2 border-blue-600">15</button>
+                    <button class="h-9 w-9 bg-gray-200 text-gray-700 text-xs font-bold rounded border">16</button>
+                </div>
+            </div>
+
+            <!-- 5. MONITORING CAMERA (ANTI-CHEATING) -->
+            <div class="mt-6 border-t pt-4">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-xs font-semibold text-gray-500 flex items-center">
+                        <span class="w-2 h-2 bg-red-500 rounded-full animate-ping mr-1.5"></span> Ghi hình giám sát
+                    </span>
+                    <i class="fa-solid fa-video text-gray-400 text-xs"></i>
+                </div>
+                <div class="w-full h-36 bg-black rounded-lg overflow-hidden relative flex items-center justify-center">
+                    <!-- Giả lập Camera -->
+                    <div class="text-gray-500 text-xs text-center">
+                        <i class="fa-solid fa-user-shield text-2xl mb-1"></i>
+<p>Camera Live Feed</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- MODAL KẾT QUẢ THI (ẨN MẶC ĐỊNH) -->
+    <div id="resultModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden transform transition-all scale-100">
+            
+            <!-- Modal Header (Đổi màu tùy theo Đỗ / Trượt) -->
+            <div id="modalHeader" class="bg-green-600 text-white p-6 text-center relative">
+                <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3 backdrop-blur-md">
+                    <i id="statusIcon" class="fa-solid fa-trophy text-3xl text-yellow-300"></i>
+                </div>
+                <h2 id="statusTitle" class="text-2xl font-extrabold">CHÚC MỪNG BẠN!</h2>
+                <p id="statusSubtitle" class="text-green-100 text-sm mt-1">Bạn đã hoàn thành xuất sắc bài thi</p>
+            </div>
+
+            <!-- Modal Body (Thông số điểm) -->
+            <div class="p-6">
+                <!-- Tổng điểm nổi bật -->
+                <div class="text-center mb-6">
+                    <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Tổng điểm đạt được</span>
+                    <div class="text-4xl font-black text-gray-800 mt-1">
+                        <span id="userScore" class="text-green-600">8.5</span> <span class="text-lg text-gray-400 font-normal">/ 10</span>
+                    </div>
+                </div>
+
+                <!-- Thống kê chi tiết -->
+                <div class="grid grid-cols-2 gap-3 mb-6">
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-center">
+                        <p class="text-xs text-gray-500">Số câu đúng</p>
+                        <p id="correctCount" class="text-lg font-bold text-green-600">34 / 40</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-center">
+                        <p class="text-xs text-gray-500">Thời gian làm bài</p>
+                        <p id="timeSpent" class="text-lg font-bold text-blue-600">32:15</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-center">
+                        <p class="text-xs text-gray-500">Số câu sai</p>
+                        <p id="wrongCount" class="text-lg font-bold text-red-500">6</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-center">
+                        <p class="text-xs text-gray-500">Kết quả</p>
+                        <p id="passStatus" class="text-lg font-bold text-green-600">ĐẠT</p>
+                    </div>
+                </div>
+
+                <!-- Nút thao tác -->
+                <div class="space-y-2">
+<button onclick="window.location.reload()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl shadow-lg transition duration-200">
+                        <i class="fa-solid fa-rotate-right mr-2"></i>Làm lại bài thi
+                    </button>
+                    <button onclick="closeModal()" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-600 font-semibold py-2.5 rounded-xl transition">
+                        Đóng
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT XỬ LÝ NỘP BÀI VÀ MỞ MODAL -->
+    <script>
+        // Đồng hồ đếm ngược
+        let totalTime = 45 * 60;
+        let timeLeft = totalTime;
+        const timerElement = document.getElementById('timer');
+        
+        const timerInterval = setInterval(() => {
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                submitExam(true); // Tự động nộp khi hết giờ
+                return;
+            }
+            timeLeft--;
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }, 1000);
+
+        // Đánh dấu câu hỏi
+        let isFlagged = false;
+        function toggleFlag() {
+            isFlagged = !isFlagged;
+            const icon = document.getElementById('flagIcon');
+            const text = document.getElementById('flagText');
+            icon.className = isFlagged ? 'fa-solid fa-bookmark text-yellow-500 mr-1.5' : 'fa-regular fa-bookmark mr-1.5';
+            text.textContent = isFlagged ? 'Đã đánh dấu' : 'Đánh dấu xem lại';
+        }
+
+        // Xóa chọn đáp án
+        function clearSelection() {
+            const radios = document.getElementsByName('answer');
+            radios.forEach(radio => radio.checked = false);
+        }
+
+        // Xử lý nộp bài và hiển thị Popup Result
+        function submitExam(isTimeOut = false) {
+            if (isTimeOut || confirm("Bạn có chắc chắn muốn nộp bài thi ngay bây giờ?")) {
+                clearInterval(timerInterval); // Dừng đếm ngược
+
+                // Giả lập tính toán kết quả (Thay bằng API thực tế)
+                const score = 8.5; 
+                const isPassed = score >= 5.0;
+                
+                // Tính thời gian đã dùng
+                const timeUsedSeconds = totalTime - timeLeft;
+                const minutesUsed = Math.floor(timeUsedSeconds / 60);
+                const secondsUsed = timeUsedSeconds % 60;
+                const formattedTimeUsed = `${minutesUsed} phút ${secondsUsed} giây`;
+
+                // Cập nhật dữ liệu vào Modal
+                document.getElementById('userScore').innerText = score;
+document.getElementById('timeSpent').innerText = formattedTimeUsed;
+                
+                // Cập nhật giao diện Đỗ/Trượt
+                const header = document.getElementById('modalHeader');
+                const icon = document.getElementById('statusIcon');
+                const title = document.getElementById('statusTitle');
+                const passStatus = document.getElementById('passStatus');
+
+                if (isPassed) {
+                    header.className = "bg-green-600 text-white p-6 text-center relative";
+                    icon.className = "fa-solid fa-trophy text-3xl text-yellow-300";
+                    title.innerText = "CHÚC MỪNG BẠN!";
+                    passStatus.innerText = "ĐẠT";
+                    passStatus.className = "text-lg font-bold text-green-600";
+                } else {
+                    header.className = "bg-red-600 text-white p-6 text-center relative";
+                    icon.className = "fa-solid fa-xmark-circle text-3xl text-white";
+                    title.innerText = "RẤT TIẾC!";
+                    passStatus.innerText = "KHÔNG ĐẠT";
+                    passStatus.className = "text-lg font-bold text-red-600";
+                }
+
+                // Hiển thị Modal
+                document.getElementById('resultModal').classList.remove('hidden');
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('resultModal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>      

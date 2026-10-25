@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Admin - Thống Kê Kết Quả</title>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background-color: #0f172a;
+            position: fixed;
+            top: 0;
+            left: 0;
+            color: #94a3b8;
+            z-index: 1000;
+        }
+        .sidebar .nav-link {
+            color: #94a3b8;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-bottom: 4px;
+        }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+            color: #fff;
+            background-color: #0d6efd;
+        }
+        .main-content {
+            margin-left: 250px;
+            padding: 24px;
+        }
+        .card {
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .icon-box {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar d-none d-md-flex flex-column justify-content-between p-3">
+        <div>
+            <div class="d-flex align-items-center gap-2 text-white fw-bold fs-5 px-2 py-3 border-bottom border-secondary mb-3">
+                <i class="fa-solid fa-user-shield text-primary"></i>
+                <span>EXAM ADMIN</span>
+            </div>
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item">
+                    <a href="admin-dashboard.html" class="nav-link"><i class="fa-solid fa-chart-pie me-2"></i> Tổng quan</a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-subject.html" class="nav-link "><i class="fa-solid fa-book-bookmark me-2"></i> Quản lý môn học</a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-answer.html" class="nav-link"><i class="fa-solid fa-file-pen me-2"></i> Ngân hàng câu hỏi</a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-manager.html" class="nav-link"><i class="fa-solid fa-users me-2"></i> Quản lý thí sinh</a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-statistics.html" class="nav-link active"><i class="fa-solid fa-square-poll-vertical me-2"></i> Thống kê kết quả</a>
+                </li>
+            </ul>
+        </div>
+        <div class="px-2 text-muted" style="font-size: 12px;">
+            <small>Hệ thống Quản lý Thi v2.5</small>
+        </div>
+    </div>
+    
+    <div class="main-content">
+        <div class="d-flex justify-content-between align-items-center bg-white p-3 rounded-3 shadow-sm mb-4">
+            <div>
+                <h4 class="fw-bold text-dark">Thống kế & Báo Cáo Kết Quả</h4>
+            </div>
+            <div class="d-flex gap-2">
+                <button type="button" class="btn btn-outline-success btn-sm fw-bold">
+                    <i class="fa-solid fa-file-excel me-1"></i> Xuất file Excel
+                </button>
+                <button type="button" class="btn btn-outline-primary btn-sm fw-bold">
+                    <i class="fa-solid fa-file-pdf me-1"></i> Xuất file Pdf
+                </button>
+            </div>
+        </div>
+
+        <div class="card p-3 mb-4">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label fw-bold small -muted">Chọn Môn Học</label>
+                    <select class="form-select form-select-sm">
+                        <option value="" selected disabled>--Tất Cả Các Môn Học--</option>
+                        <option value="MATh01">Toán Học 9</option>
+                        <option value="HiS01">Lịch Sử 9</option>
+                        <option value="PYS01">Sinh Học 9</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label  fw-bold small text-muted">Từ Ngày</label>
+                    <input type="date" class="form-control form-control-sm" value="2026-09-30">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label  fw-bold small text-muted">Đến Ngày</label>
+                    <input type="date" class="form-control form-control-sm" value="2026-09-30">
+                </div>
+                <div class="col-md-2 d-flex align-items-center">
+                    <button type="button" class="btn btn-outline-primary w-100 fw-bold">
+                        <i class="fa-solid fa-filter me-1"></i> Lọc dữ liệu
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row g-3 mb-3">
+            <div class="col-md-3">
+                <div class="card p-3">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="icon-box bg-primary-subtle text-primary">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </div>
+                        <div>
+                            <span class="text-muted small text-uppercase fw-bold">Lượt Thi đã nộp</span>
+                            <h3 class="fw-bold mb-0 text-info">1.200</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card p-3 bg-light">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="icon-box bg-primary-subtle text-primary">
+                            <i class="fa-solid fa-calculator"></i>
+                        </div>
+                        <div>
+                            <span class="text-muted small text-uppercase fw-bold">Điểm Trung Bình</span>
+                            <h3 class="fw-bold mb-0 text-info">7.5</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card p-3">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="icon-box bg-info-subtle text-info">
+                            <i class="fa-solid fa-trophy"></i>
+                        </div>
+                        <div>
+                            <span class="text-muted small fw-bold text-uppercase">Điểm Cao nhất</span>
+                            <h3 class="fw-bold mb-0 text-info">10.0</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card p-3">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="icon-box bg-info-subtle text-info">
+                            <i class="fa-solid fa-circle-xmark"></i>
+                        </div>
+                        <div>
+                            <span class="text-muted small fw-bold text-uppercase">Tỷ Lệ Trượt</span>
+                            <h3 class="fw-bold mb-0 text-success">12.2%</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row g-3 mb-4">
+            <!-- Biểu đồ cột: Phổ điểm thi -->
+            <div class="col-md-8">
+                <div class="card p-3 h-100">
+                    <h6 class="fw-bold text-dark mb-3">Phổ Điểm Thi (Thang điểm 10)</h6>
+                    <canvas id="scoreDistributionChart" style="max-height: 280px;"></canvas>
+                </div>
+            </div>
+            <!-- Biểu đồ tròn: Tỷ lệ Đạt / Không đạt -->
+            <div class="col-md-4">
+                <div class="card p-3 h-100">
+                    <h6 class="fw-bold text-dark mb-3">Tỷ Lệ Hoàn Thành Kỳ Thi</h6>
+                    <canvas id="passFailChart" style="max-height: 280px;"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. BẢNG CHI TIẾT ĐIỂM SỐ CỦA THÍ SINH -->
+        <div class="card p-3">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h6 class="fw-bold text-dark mb-0">Danh Sách Bảng Điểm Chi Tiết</h6>
+                <div class="input-group" style="width: 250px;">
+                    <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
+                    <input type="text" class="form-control border-start-0 form-control-sm" placeholder="Tìm Mã SV, Tên...">
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light text-uppercase ps-7">
+                        <tr>
+                            <th>Số Báo Danh</th>
+                            <th>Họ Và Tên</th>
+                            <th>Môn Học</th>
+                            <th>Thời Gian Làm bài</th>
+                            <th>Số Câu Đúng</th>
+                            <th>Điểm Số</th>
+                            <th>Xếp Loại</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th class="fw-bold text-primary">019383</th>
+                            <th>Nguyễn Văn A</th>
+                            <th>Toán Học 9</th>
+                            <th>32 Phút Trước</th>
+                            <th>36/40</th>
+                            <th>9.0</th>
+                            <th><span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3 py-1">Giỏi</span></th>
+                        </tr>
+                        <tr>
+                            <th class="fw-bold text-primary">019383</th>
+                            <th>Nguyễn Văn A</th>
+                            <th>Toán Học 9</th>
+                            <th>32 Phút Trước</th>
+                            <th>36/40</th>
+                            <th>9.0</th>
+                            <th><span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3 py-1">Giỏi</span></th>
+                        </tr>
+                        <tr>
+                            <th class="fw-bold text-primary">019383</th>
+                            <th>Nguyễn Văn A</th>
+                            <th>Toán Học 9</th>
+                            <th>32 Phút Trước</th>
+                            <th>36/40</th>
+                            <th>9.0</th>
+                            <th><span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3 py-1">Giỏi</span></th>
+                        </tr>
+                        <tr>
+                            <th class="fw-bold text-primary">019383</th>
+                            <th>Nguyễn Văn A</th>
+                            <th>Toán Học 9</th>
+                            <th>32 Phút Trước</th>
+                            <th>36/40</th>
+                            <th>9.0</th>
+                            <th><span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3 py-1">Giỏi</span></th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/chart.js"></script>
+    <script>
+        const ctxScore = document.getElementById('scoreDistributionChart').getContext('2d');
+        new Chart(ctxScore, {
+            type: 'bar',
+            data: {
+                labels: ['0-2', '2-4', '4-5', '5-6', '6-7', '7-8', '8-9', '9-10'],
+                datasets: [{
+                    label: 'số Lượng Thí Sinh',
+                    data: [15, 45, 96, 280, 490, 290, 134],
+                    backgroundColor: '#0d6edf',
+                    borderRadius: 6
+                }]
+            }, 
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+        const ctxPassFail = document.getElementById('passFailChart').getContext('2d');
+        new Chart(ctxPassFail, {
+            type: 'doughnut',
+            data: {
+                labels: ['Đạt (>=5.0)', 'Trượt (<5.0)'],
+                datasets: [{
+                    data: [87.8, 12.2],
+                    backgroundColor: ['#198754', '#dc3545'],
+                }]
+            },
+            option: {
+                responsive: true,
+                maintainAspectRatio: false,
+            }
+        });
+    </script>
+</body>
+</html>

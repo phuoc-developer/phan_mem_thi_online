@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lựa chọn bài thi - Hệ thống thi trực tuyến</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a href="#" class="navbar-brand fw-bold"><i class="bi bi-laptop me-2"></i>Thi trực tuyến</a>
+            <div class="d-flex align-items-center text-white">
+                <i class="bi bi-person-circle fs-5 me-2"></i>
+                <span class="me-3 fw-semibold">Thí sinh: Nguyễn Văn A (SBD: 010203)</span>
+                <a href="index.html" class="btn btn-outline-light"><i class="bi bi-box-arrow-right"></i> Thoát</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+       <h3 class="fw-bold text-primary align-items-center text-center">Kì Thi Tốt Nghiệp Trung Học Phổ Thông 2027</h3>    
+    </div>
+    <div class="conatiner my-4" style="max-width: 800px;">
+        <div class="card select-card p-4">
+            <h4 class="fw-bold text-primary mb-3 border-bottom pb-2">THÔNG TIN BÀI THI THÍ SINH</h4>
+
+            <form action="exam.html" method="post">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">1. Khu vực / phòng thi</label>
+                        <select class="form-select" required>
+                            <option value="" selected disabled>-- Chọn khu vực/ phòng thi--</option>
+                            <option value="kv1">Khu Vực 1 / P.MÁY 1</option>
+                            <option value="kv2">Khu Vực 2 / P.MÁY 2</option>
+                            <option value="kv3">Khu Vực 3 / P.MÁY 3</option>
+                        </select>
+                    </div>
+
+                     <div class="col-md-6">
+                        <label class="form-label fw-bold">2. Cấp Học</label>
+                        <select class="form-select" required>
+                            <option value="" selected disabled>-- Chọn Cấp Học --</option>
+                            <option value="TH">Tiểu Học(Cấp 1)</option>
+                            <option value="THCS">Trung Học Cớ Sở(Cấp 2)</option>
+                            <option value="THPT">Trung Học Phổ Thông(Cấp 3)</option>
+                        </select>
+                    </div>
+
+                     <div class="col-md-6">
+                        <label class="form-label fw-bold">3. Lớp Học</label>
+                        <select class="form-select" required>
+                            <option value="" selected disabled>-- Chọn Lớp Học--</option>
+                            <option value="L1">Lớp 1</option>
+                            <option value="L2">Lớp 2</option>
+                            <option value="L3">Lớp 3</option>
+                            <option value="L4">Lớp 4</option>
+                            <option value="L5">Lớp 5</option>
+                            <option value="L6">Lớp 6</option>
+                            <option value="L7">Lớp 7</option>
+                            <option value="L8">Lớp 8</option>
+                            <option value="L9">Lớp 9</option>
+                            <option value="L10">Lớp 10</option>
+                            <option value="L11">Lớp 11</option>
+                            <option value="L12">Lớp 12</option>
+                        </select>
+                    </div>
+
+                     <div class="col-md-6">
+                        <label class="form-label fw-bold">4. MÔN Học</label>
+                        <select class="form-select" required>
+                            <option value="" selected disabled>-- Chọn Môn Học--</option>
+                            <option value="kv1">Toán</option>
+                            <option value="kv2">Tiếng Anh</option>
+                            <option value="kv3">Lịch Sử</option>
+                            <option value="kv3">Địa lí</option>
+                            <option value="kv3">Hóa Học</option>
+                            <option value="kv3">Vật Lí</option>
+                            <option value="kv3">Sinh Học</option>
+                        </select>
+                    </div>
+                    
+                    <div class="space-y-6">
+    <!-- 1. BỘ LỌC CHỌN NGÀY THI -->
+    <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200">
+        <label for="examDate" class="block text-sm font-bold text-gray-700 uppercase mb-2">
+            <i class="fa-regular fa-calendar-days text-blue-600 mr-2"></i>Chọn ngày thi:
+        </label>
+        <select id="examDate" onchange="loadSubjectList()" class="w-full md:w-1/3 p-3 bg-gray-50 border border-gray-300 rounded-lg text-sm text-gray-800 font-medium focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            <option value="">-- Chọn ngày thi --</option>
+            <option value="2026-08-30">Hôm nay (30/08/2026)</option>
+            <option value="2026-08-31">Ngày mai (31/08/2026)</option>
+            <option value="2026-09-01">01/09/2026</option>
+        </select>
+    </div>
+
+    <!-- 2. CỘT/BẢNG DANH SÁCH MÔN THI (HIỆN KHI CHỌN NGÀY) -->
+    <div id="subjectListContainer" class="bg-white p-5 rounded-xl shadow-sm border border-gray-200 hidden">
+        <h3 class="text-base font-bold text-gray-800 mb-4 flex items-center">
+            <i class="fa-solid fa-list-check text-blue-600 mr-2"></i>
+            Danh sách môn thi ngày <span id="selectedDateText" class="text-blue-600 ml-1"></span>
+        </h3>
+
+        <!-- Bảng danh sách môn thi -->
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm text-left text-gray-600">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-100 rounded-lg">
+                    <tr>
+                        <th class="px-4 py-3 rounded-l-lg">Mã môn</th>
+                        <th class="px-4 py-3">Tên môn thi</th>
+                        <th class="px-4 py-3">Thời gian</th>
+                        <th class="px-4 py-3">Trạng thái</th>
+                        <th class="px-4 py-3 text-center rounded-r-lg">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody id="subjectTableBody" class="divide-y divide-gray-100">
+                    <!-- Dữ liệu được chèn động bằng JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+                </div>
+                <div class="alert alert-warning mt-4 mb-3">
+                    <h6 class="fw-bold"><i class="bi bi-exclamation-triangle-fill me-1"></i>Lưu ý khi trước khi vào phòng thi</h6>
+                    <ul class="mb-0 small">
+                        <li>Hệ thống sẽ tự động chuyển sang chế độ toàn màn hình khi bắt đầu.</li>
+                        <li>Thí sinh không được phép chuyển tab hoặc mở ứng dụng khác trong quá trình làm bài.</li>
+                        <li>Bài thi sẽ tự động nộp khi hết giờ làm bài.</l>
+                    </ul>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+    <!-- SCRIPT XỬ LÝ ĐỔ DỮ LIỆU BẢNG -->
+<script>
+    // Dữ liệu danh sách môn thi theo ngày
+    const examDataByDate = {
+        "2026-08-30": [
+            { id: "CDS01", name: "Chuyển đổi số quốc gia", duration: "45 phút", status: "Sẵn sàng", available: true },
+            { id: "TH01", name: "Tin học văn phòng nâng cao", duration: "60 phút", status: "Sẵn sàng", available: true }
+        ],
+        "2026-08-31": [
+            { id: "ATTT02", name: "An toàn thông tin cơ bản", duration: "30 phút", status: "Chưa tới giờ", available: false },
+            { id: "CSDL01", name: "Cơ sở dữ liệu & Big Data", duration: "90 phút", status: "Chưa tới giờ", available: false }
+        ],
+        "2026-09-01": [
+{ id: "AI01", name: "Ứng dụng Trí tuệ nhân tạo", duration: "45 phút", status: "Chưa tới giờ", available: false }
+        ]
+    };
+
+    function loadSubjectList() {
+        const dateInput = document.getElementById('examDate').value;
+        const container = document.getElementById('subjectListContainer');
+        const tableBody = document.getElementById('subjectTableBody');
+        const dateText = document.getElementById('selectedDateText');
+
+        // Reset dữ liệu cũ
+        tableBody.innerHTML = '';
+
+        if (dateInput && examDataByDate[dateInput]) {
+            // Định dạng ngày hiển thị (VD: 30/08/2026)
+            const [year, month, day] = dateInput.split('-');
+            dateText.textContent = `${day}/${month}/${year}`;
+
+            // Tạo từng dòng (row) cho môn thi
+            examDataByDate[dateInput].forEach(sub => {
+                const row = document.createElement('tr');
+                row.className = "hover:bg-blue-50/50 transition";
+
+                row.innerHTML = `
+                    <td class="px-4 py-3 font-semibold text-gray-800">${sub.id}</td>
+                    <td class="px-4 py-3 font-medium text-gray-900">${sub.name}</td>
+                    <td class="px-4 py-3"><i class="fa-regular fa-clock mr-1 text-gray-400"></i>${sub.duration}</td>
+                    <td class="px-4 py-3">
+                        <span class="px-2.5 py-1 text-xs font-semibold rounded-full ${sub.available ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'}">
+                            ${sub.status}
+                        </span>
+                    </td>
+                    <td class="px-4 py-3 text-center">
+                        <button onclick="startExam('${sub.id}', '${sub.name}')" 
+                            ${!sub.available ? 'disabled' : ''} 
+                            class="px-4 py-1.5 text-xs font-bold rounded-lg text-white transition ${sub.available ? 'bg-blue-600 hover:bg-blue-700 shadow-sm' : 'bg-gray-300 cursor-not-allowed'}">
+                            ${sub.available ? 'Vào thi' : 'Khóa'}
+                        </button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+
+            // Hiện khung danh sách môn thi
+            container.classList.remove('hidden');
+        } else {
+            // Ẩn nếu chưa chọn ngày
+            container.classList.add('hidden');
+        }
+    }
+
+    // Hàm gọi khi nhấn nút "Vào thi"
+    function startExam(subjectId, subjectName) {
+        alert(`Bắt đầu làm bài thi môn: [${subjectId}] ${subjectName}`);
+        // Thêm logic chuyển màn hình hoặc nạp câu hỏi bài thi tại đây
+    }
+</script>
+
+</body>
+</html>

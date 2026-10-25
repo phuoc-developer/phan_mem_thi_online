@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Admin - Quản lí Thí Sinh</title>
+     <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-100 font-sans flex h-screen overflow-hidden">
+    <!-- 1. SIDEBAR -->
+    <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col justify-between hidden md:flex">
+        <div>
+            <div class="h-16 flex items-center px-6 border-b border-slate-800 text-white font-bold text-lg space-x-3">
+                <i class="fa-solid fa-user-shield text-blue-500 text-2xl"></i>
+                <span>EXAM ADMIN</span>
+            </div>
+
+            <nav class="p-4 space-y-1 text-sm font-medium">
+                <a href="admin-dashboard.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-800 transition">
+                    <i class="fa-solid fa-chart-pie w-6"></i> Tổng quan
+                </a>
+                <a href="admin-subject.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-800 transition">
+                    <i class="fa-solid fa-book-bookmark w-6"></i> Quản lý môn thi
+                </a>
+                <a href="admin-answer.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-800 transition">
+                    <i class="fa-solid fa-file-pen w-6"></i> Ngân hàng câu hỏi
+                </a>
+                <!-- Active tab Ngân hàng câu hỏi -->
+                
+                <a href="admin-manager.html" class="flex items-center px-4 py-3 text-white bg-blue-600 rounded-lg shadow-sm">
+                    <i class="fa-solid fa-users w-6"></i> Quản lý thí sinh
+                </a>
+                <a href="admin-statistics.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-800 transition">
+                    <i class="fa-solid fa-square-poll-vertical w-6"></i> Thống kê kết quả
+                </a>
+            </nav>
+        </div>
+
+        <div class="p-4 border-t border-slate-800 text-xs text-slate-500">
+            <p>Hệ thống Quản lý Thi v2.5</p>
+        </div>
+    </aside>
+
+    <div class="flex-1 flex flex-col overflow-y-auto">
+
+        <!-- 2. HEADER -->
+        <header class="bg-white h-16 border-b border-gray-200 px-6 flex items-center justify-between sticky top-0 z-10">
+            <h2 class="text-xl font-bold text-gray-800">Quản Lý Danh Sách Thí Sinh</h2>
+            
+            <div class="flex items-center space-x-4">
+                <button class="text-gray-500 hover:text-gray-700 relative">
+                    <i class="fa-regular fa-bell text-xl"></i>
+                    <span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full"></span>
+                </button>
+                <div class="flex items-center space-x-3 border-l pl-4 border-gray-200">
+                    <img src="https://ui-avatars.com/api/?name=Admin+User&background=0D8ABC&color=fff" class="w-9 h-9 rounded-full" alt="Avatar">
+                    <div class="text-xs">
+                        <p class="font-bold text-gray-800">Quản trị viên</p>
+                        <p class="text-gray-500">admin@system.com</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- 3. NỘI DUNG CHÍNH -->
+        <main class="p-6 space-y-6">
+
+            <!-- Thống kê nhanh thí sinh -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200 flex items-center space-x-4">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 text-xl font-bold">
+                        <i class="fa-solid fa-user-group"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-500 uppercase font-bold">Tổng thí sinh</p>
+                        <p class="text-2xl font-black text-gray-800">1,250</p>
+                    </div>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200 flex items-center space-x-4">
+                    <div class="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center text-emerald-600 text-xl font-bold">
+                        <i class="fa-solid fa-user-check"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-500 uppercase font-bold">Đang hoạt động</p>
+                        <p class="text-2xl font-black text-gray-800">1,180</p>
+                    </div>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200 flex items-center space-x-4">
+                    <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center text-red-600 text-xl font-bold">
+                        <i class="fa-solid fa-user-slash"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-500 uppercase font-bold">Tài khoản bị khóa</p>
+                        <p class="text-2xl font-black text-gray-800">70</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Thanh tìm kiếm & Bộ lọc -->
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
+                    <!-- Ô tìm kiếm -->
+                    <div class="relative w-full sm:w-64">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-gray-400 text-sm"></i>
+                        <input type="text" placeholder="Tìm SBD, Tên, Email..." class="w-full pl-9 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    </div>
+
+                    <!-- Lọc Lớp/Đơn vị -->
+                    <select class="border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-600 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        <option value="">Tất cả đơn vị / Lớp</option>
+                        <option value="K65-CNTT">Lớp K65-CNTT</option>
+                        <option value="K65-QTKD">Lớp K65-QTKD</option>
+                    </select>
+
+                    <!-- Lọc Trạng thái -->
+                    <select class="border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-600 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        <option value="">Tất cả trạng thái</option>
+                        <option value="active">Hoạt động</option>
+                        <option value="locked">Bị khóa</option>
+                    </select>
+                </div>
+
+                <!-- Nút Import Excel & Thêm Thí sinh (CSS :target) -->
+                <div class="flex items-center space-x-3 w-full md:w-auto justify-end">
+                    <button class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-4 py-2 rounded-lg text-sm transition flex items-center space-x-2">
+                        <i class="fa-solid fa-file-excel"></i>
+                        <span>Nhập Excel</span>
+                    </button>
+                    <!-- Nút bấm chuyển hướng sang #studentModal để mở modal bằng CSS -->
+                    <a href="#studentModal" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-lg text-sm transition flex items-center space-x-2">
+                        <i class="fa-solid fa-user-plus"></i>
+                        <span>Thêm thí sinh</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Bảng danh sách thí sinh -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left text-gray-600">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 border-b border-gray-200">
+                            <tr>
+                                <th class="px-6 py-4">SBD / Mã TS</th>
+                                <th class="px-6 py-4">Họ và Tên</th>
+                                <th class="px-6 py-4">Email</th>
+                                <th class="px-6 py-4">Lớp / Đơn vị</th>
+                                <th class="px-6 py-4">Ngày sinh</th>
+                                <th class="px-6 py-4">Trạng thái</th>
+                                <th class="px-6 py-4 text-center">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <!-- Thí sinh 1 -->
+                            <tr class="hover:bg-gray-50 transition">
+                                <td class="px-6 py-4 font-bold text-gray-800">TS202601</td>
+                                <td class="px-6 py-4 font-semibold text-gray-900 flex items-center space-x-3">
+                                    <img src="https://ui-avatars.com/api/?name=Nguyen+Van+A&background=random" class="w-8 h-8 rounded-full" alt="Avatar">
+                                    <span>Nguyễn Văn A</span>
+                                </td>
+                                <td class="px-6 py-4">nguyenvana@gmail.com</td>
+                                <td class="px-6 py-4 font-medium text-gray-700">K65-CNTT</td>
+                                <td class="px-6 py-4">15/05/2003</td>
+                                <td class="px-6 py-4">
+                                    <span class="px-2.5 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-700">Hoạt động</span>
+                                </td>
+                                <td class="px-6 py-4 text-center space-x-2">
+                                    <button class="text-blue-600 hover:text-blue-800 p-1" title="Chỉnh sửa"><i class="fa-solid fa-pen-to-square"></i></button>
+                                    <button class="text-amber-600 hover:text-amber-800 p-1" title="Đặt lại mật khẩu"><i class="fa-solid fa-key"></i></button>
+                                    <button class="text-red-600 hover:text-red-800 p-1" title="Khóa tài khoản"><i class="fa-solid fa-user-lock"></i></button>
+                                </td>
+                            </tr>
+                            <!-- Thí sinh 2 -->
+                            <tr class="hover:bg-gray-50 transition">
+                                <td class="px-6 py-4 font-bold text-gray-800">TS202602</td>
+                                <td class="px-6 py-4 font-semibold text-gray-900 flex items-center space-x-3">
+                                    <img src="https://ui-avatars.com/api/?name=Tran+Thi+B&background=random" class="w-8 h-8 rounded-full" alt="Avatar">
+                                    <span>Trần Thị B</span>
+                                </td>
+                                <td class="px-6 py-4">tranthib@gmail.com</td>
+                                <td class="px-6 py-4 font-medium text-gray-700">K65-QTKD</td>
+                                <td class="px-6 py-4">20/11/2003</td>
+                                <td class="px-6 py-4">
+                                    <span class="px-2.5 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-600">Đã khóa</span>
+                                </td>
+                                <td class="px-6 py-4 text-center space-x-2">
+                                    <button class="text-blue-600 hover:text-blue-800 p-1" title="Chỉnh sửa"><i class="fa-solid fa-pen-to-square"></i></button>
+                                    <button class="text-amber-600 hover:text-amber-800 p-1" title="Đặt lại mật khẩu"><i class="fa-solid fa-key"></i></button>
+                                    <button class="text-green-600 hover:text-green-800 p-1" title="Mở khóa tài khoản"><i class="fa-solid fa-user-check"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Phân trang -->
+                <div class="px-6 py-4 border-t border-gray-200 flex items-center justify-between text-xs text-gray-500">
+                    <p>Hiển thị 1 - 2 trong tổng số 1,250 thí sinh</p>
+                    <div class="flex space-x-1">
+                        <button class="px-3 py-1 border rounded hover:bg-gray-100 disabled:opacity-50">Trước</button>
+                        <button class="px-3 py-1 border rounded bg-blue-600 text-white font-bold">1</button>
+                        <button class="px-3 py-1 border rounded hover:bg-gray-100">2</button>
+                        <button class="px-3 py-1 border rounded hover:bg-gray-100">Sau</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 4. MODAL THÊM THÍ SINH (Hoạt động bằng CSS :target không dùng JS) -->
+    <div id="studentModal" class="modal-target fixed inset-0 bg-black/50 backdrop-blur-sm hidden flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-xl shadow-xl max-w-lg w-full overflow-hidden">
+            <!-- Header Modal -->
+            <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center bg-gray-50">
+                <h3 class="font-bold text-gray-800 flex items-center gap-2">
+                    <i class="fa-solid fa-user-plus text-blue-600"></i> Thêm Thí Sinh Mới
+                </h3>
+                <a href="#" class="text-gray-400 hover:text-gray-600 text-xl font-bold">&times;</a>
+            </div>
+
+            <!-- Form Thêm Thí Sinh -->
+            <form action="/add-student" method="POST" class="p-6 space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Số báo danh / Mã TS</label>
+                        <input type="text" name="student_id" required placeholder="VD: TS202603" class="w-full p-2.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Lớp / Đơn vị</label>
+                        <input type="text" name="class_name" placeholder="VD: K65-CNTT" class="w-full p-2.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Họ và Tên</label>
+                    <input type="text" name="fullname" required placeholder="Nhập tên thí sinh..." class="w-full p-2.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Email</label>
+                        <input type="email" name="email" required placeholder="example@gmail.com" class="w-full p-2.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Ngày sinh</label>
+                        <input type="date" name="dob" class="w-full p-2.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Mật khẩu khởi tạo</label>
+                    <input type="password" name="password" required value="123456" class="w-full p-2.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                </div>
+
+                <div class="flex justify-end space-x-3 pt-4 border-t border-gray-100">
+                    <a href="#" class="px-4 py-2 border rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50">Hủy</a>
+                    <button type="submit" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-semibold shadow">Lưu thí sinh</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <style>
+        .modal-target:target {
+            display: flex !important;
+        }
+    </style>
+</body>
+</html>
